@@ -9,22 +9,18 @@ locals {
 data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
 
-data "aws_vpc" "main" {
-  id = var.vpc_id
-}
-
 resource "aws_security_group" "main" {
   #checkov:skip=CKV_AWS_24:False positive from Checkov, ingress CIDR blocks on port 22 default to "[]"
   name        = var.name
   description = "Used in ${var.name} instance of fck-nat in subnet ${var.subnet_id}"
-  vpc_id      = data.aws_vpc.main.id
+  vpc_id      = var.vpc_id
 
   ingress {
     description = "Unrestricted ingress from within VPC"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = data.aws_vpc.main.cidr_block_associations[*].cidr_block
+    cidr_blocks = var.vpc_cidr_block
   }
 
   dynamic "ingress" {

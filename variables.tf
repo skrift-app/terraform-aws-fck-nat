@@ -8,6 +8,11 @@ variable "vpc_id" {
   type        = string
 }
 
+variable "vpc_cidr_block" {
+  description = "VPC CIDR Block for ingress ruleß"
+  type        = string
+}
+
 variable "subnet_id" {
   description = "Subnet ID to deploy the NAT instance into"
   type        = string
