@@ -10,7 +10,7 @@ variable "vpc_id" {
 
 variable "vpc_cidr_block" {
   description = "VPC CIDR Block for ingress ruleß"
-  type        = string
+  type        = list(string)
 }
 
 variable "subnet_id" {
