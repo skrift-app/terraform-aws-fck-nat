@@ -57,6 +57,15 @@ resource "aws_network_interface" "main" {
   tags = merge({ Name = var.name }, var.tags)
 }
 
+
+resource "aws_eip" "nat-ip" {
+  domain = "vpc"
+
+  instance                  = aws_instance.main.id
+  associate_with_private_ip = var.eip_private_ip
+  network_interface = aws_network_interface.main.id
+}
+
 resource "aws_route" "main" {
   for_each = var.update_route_tables || var.update_route_table ? merge(var.route_tables_ids, var.route_table_id != null ? { RESERVED_FKC_NAT = var.route_table_id } : {}) : {}
 

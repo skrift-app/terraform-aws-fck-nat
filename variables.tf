@@ -13,6 +13,10 @@ variable "vpc_cidr_block" {
   type        = list(string)
 }
 
+variable "eip_private_ip" {
+  description = "Private IP for the NAT instance"
+  type=string
+}
 variable "subnet_id" {
   description = "Subnet ID to deploy the NAT instance into"
   type        = string
