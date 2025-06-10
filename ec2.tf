@@ -95,6 +95,9 @@ resource "aws_launch_template" "main" {
 }
 
 resource "aws_instance" "main" {
+  #checkov:skip=CKV2_AWS_41:False positive, IAM role is attached via the launch template.
+  count = var.ha_mode ? 0 : 1
+
   launch_template {
     id      = aws_launch_template.main.id
     version = "$Latest"
