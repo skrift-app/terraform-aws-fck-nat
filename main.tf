@@ -62,7 +62,6 @@ resource "aws_eip" "nat-ip" {
   domain = "vpc"
 
   instance                  = aws_instance.main[0].id
-  associate_with_private_ip = var.eip_private_ip
   network_interface = aws_network_interface.main.id
 }
 
